@@ -7,13 +7,16 @@ spring:
     nacos:
       # 配置中心
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: waitylyou.com:8848
         file-extension: yml
         refresh: true
-        shared-dataids: light-reading-cloud-homepage.yml
         namespace: 4d109a4d-f34d-4e86-9e39-c2d36db24b00
+        username: nacos
+        password: nacos
 
       # 注册中心
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: 4d109a4d-f34d-4e86-9e39-c2d36db24b00
+        server-addr: waitylyou.com:8848
+        namespace: ${spring.cloud.nacos.config.namespace}
+        username: nacos
+        password: nacos

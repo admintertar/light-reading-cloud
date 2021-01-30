@@ -10,9 +10,9 @@ spring:
   datasource:
     book-center:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/reading_cloud_resource?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+      url: jdbc:mysql://rm-wz95034xb104s6wmt3m.mysql.rds.aliyuncs.com:3306/reading_cloud_resource?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&allowMultiQueries=true
       username: root
-      password: 'pass123'
+      password: hguanYUbs7*6#
       initial-size: 5
       min-idle: 5
       max-active: 30
@@ -20,6 +20,28 @@ spring:
       test-while-idle: true
       validation-query: 'select 1 from dual'
       connect-timeout: 1500
+  redis:
+    database: 0
+    host: r-wz9alxt60h4kumnpiwpd.redis.rds.aliyuncs.com
+    port: 6379
+    password: hgcsjbf8-
+    jedis:
+      pool:
+        #最大连接数据库连接数,设 0 为没有限制
+        max-active: 30
+        #最大等待连接中的数量,设 0 为没有限制
+        max-idle: 10
+        #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        max-wait: -1ms
+        #最小等待连接中的数量,设 0 为没有限制
+        min-idle: 0
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 5
+          max-wait: -1ms
+          min-idle: 0
+        shutdown-timeout: 100ms
 
 #---- ElasticSearch 配置  ----#
 es:
@@ -27,10 +49,10 @@ es:
   aliasName: books
   servers: http://47.104.241.41:9200
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:1001/eureka/
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:1001/eureka/
 
 feign:
   okhttp:
