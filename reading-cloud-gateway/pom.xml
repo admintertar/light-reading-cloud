@@ -114,7 +114,7 @@
                     <!-- 远程仓库地址-->
                     <registryUrl>${docker.repository.url}</registryUrl>
                     <!-- 镜像名称-->
-                    <imageName>${docker.repository.url}/${docker.repository.namespace}/book/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${docker.repository.url}/${docker.repository.namespace}/${project.artifactId}:${project.version}</imageName>
 
                     <baseImage>openjdk:8-jdk-alpine</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
