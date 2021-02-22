@@ -116,7 +116,7 @@
                     <imageName>${docker.repository.url}/${docker.repository.namespace}/${project.artifactId}:${project.version}</imageName>
 
                     <baseImage>openjdk:8-jdk-alpine</baseImage>
-                    <entryPoint>["java", "-jar -Dspring.cloud.nacos.config.namespace=89d0c247-4384-400a-84a1-d6cfd3b0fbb8", "/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-jar", "-Dspring.cloud.nacos.config.namespace=89d0c247-4384-400a-84a1-d6cfd3b0fbb8", "/${project.build.finalName}.jar"]</entryPoint>
 
                     <resources>
                         <resource>
