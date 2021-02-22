@@ -144,6 +144,7 @@
                     <serverId>${docker.repository.serverId}</serverId>
                     <!-- image tag -->
                     <imageTags>${project.version}</imageTags>
+                    <forceTags>true</forceTags>
                     <!-- 是否上传镜像，如果没配置则需要mvn clean package docker:bulild -DpushImage-->
                     <pushImage>true</pushImage>
                     <!-- 远程仓库地址-->
