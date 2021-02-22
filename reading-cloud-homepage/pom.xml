@@ -143,7 +143,10 @@
                     <!--远程仓库的用户名密码-->
                     <serverId>${docker.repository.serverId}</serverId>
                     <!-- image tag -->
-                    <imageTags>${project.version}</imageTags>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <!-- 同tag覆盖 -->
                     <forceTags>true</forceTags>
                     <!-- 是否上传镜像，如果没配置则需要mvn clean package docker:bulild -DpushImage-->
                     <pushImage>true</pushImage>
@@ -152,7 +155,7 @@
                     <!-- 镜像名称-->
                     <imageName>${docker.repository.url}/${docker.repository.namespace}/${project.artifactId}:${project.version}</imageName>
                     <baseImage>openjdk:8-jdk-alpine</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
 
                     <resources>
                         <resource>
