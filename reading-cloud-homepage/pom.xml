@@ -148,6 +148,7 @@
                     </imageTags>
                     <!-- 同tag覆盖 -->
                     <forceTags>true</forceTags>
+                    <pushImageTag>true</pushImageTag>
                     <!-- 是否上传镜像，如果没配置则需要mvn clean package docker:bulild -DpushImage-->
                     <pushImage>true</pushImage>
                     <!-- 远程仓库地址-->
