@@ -142,15 +142,16 @@
                 <configuration>
                     <!--远程仓库的用户名密码-->
                     <serverId>${docker.repository.serverId}</serverId>
+                    <!-- image tag -->
+                    <imageTags>${project.version}</imageTags>
                     <!-- 是否上传镜像，如果没配置则需要mvn clean package docker:bulild -DpushImage-->
                     <pushImage>true</pushImage>
                     <!-- 远程仓库地址-->
                     <registryUrl>${docker.repository.url}</registryUrl>
                     <!-- 镜像名称-->
                     <imageName>${docker.repository.url}/${docker.repository.namespace}/${project.artifactId}:${project.version}</imageName>
-
                     <baseImage>openjdk:8-jdk-alpine</baseImage>
-                    <entryPoint>["java", "-jar", "-Dspring.cloud.nacos.config.namespace=89d0c247-4384-400a-84a1-d6cfd3b0fbb8", "/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
 
                     <resources>
                         <resource>
