@@ -5,6 +5,9 @@ pipeline {
     }
 
   }
+  environment {
+    build_tag = 'env-param'
+  }
   stages {
     stage('Prepare') {
       steps {
