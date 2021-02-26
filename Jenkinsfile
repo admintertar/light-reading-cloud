@@ -34,9 +34,9 @@ pipeline {
 
     stage('Build-Dockers') {
       parallel {
-        sh 'pwd'
         stage('Build-reading-cloud-gateway') {
           steps {
+            sh 'pwd'
             sh 'sh "cd reading-cloud-gateway;docker build -t reading-cloud-gateway:${build_tag} ."'
           }
         }
