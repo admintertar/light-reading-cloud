@@ -18,6 +18,7 @@ node('jnlp-slave') {
     }
     stage('Build-Docker') {
         echo "3.Build Docker Images Stage"
+        sh "docker build -t -f ./reading-cloud-gateway/Dockerfile reading-cloud-gateway:${build_tag} ."
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
