@@ -24,10 +24,15 @@ node('jnlp-slave') {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                 sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword} registry-vpc.cn-shenzhen.aliyuncs.com"
-                sh "docker push reading-cloud-gateway:${build_tag}"
+                sh "docker push registry-vpc.cn-shenzhen.aliyuncs.com/ecs-repo/reading-cloud-gateway:${build_tag}"
         }
     }
+    stage('YAML') {
+        echo "5. Change YAML File Stage"
+        sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-gateway.yaml"
+    }
     stage('Deploy') {
-        echo "5. Deploy Stage"
+        echo "6. Deploy Stage"
+        sh "kubectl apply -f /data/light-book/reading-cloud-gateway.yaml"
     }
 }
