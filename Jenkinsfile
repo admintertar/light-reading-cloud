@@ -13,8 +13,8 @@ pipeline {
       steps {
         sh 'echo "1.Prepare Stage"'
         checkout scm
-        
-        def tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+
+        tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
         build_tag = tag
         sh 'echo ${tag}'
         if (env.BRANCH_NAME != 'master') {
