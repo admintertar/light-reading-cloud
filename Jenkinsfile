@@ -1,9 +1,14 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'jnlp-slave'
+    }
+
+  }
   stages {
-    stage('PLYG') {
+    stage('stage') {
       steps {
-        unstable '2131'
+        unstable 'asdasd'
       }
     }
 
