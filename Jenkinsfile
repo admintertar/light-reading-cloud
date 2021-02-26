@@ -1,17 +1,17 @@
 node('jnlp-slave') {
     stage('Prepare') {
-      echo "1.Prepare Stage"
+        echo 'Prepare'
     }
     stage('Test') {
-      echo "2.Test Stage"
+        echo 'Test'
     }
     stage('Build') {
-      echo "3.Build Docker Image Stage"
+        echo 'Build'
     }
     stage('Push') {
-      echo "4.Push Docker Image Stage"
+        echo 'Push'
     }
     stage('Deploy') {
-      echo "5. Deploy Stage"
+        echo 'Deploy'
     }
 }
