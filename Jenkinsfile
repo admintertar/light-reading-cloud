@@ -40,7 +40,8 @@ pipeline {
         stage('Build-reading-cloud-gateway') {
           steps {
             sh 'pwd'
-            sh 'cd reading-cloud-gateway;docker build -t reading-cloud-gateway:${env.build_tag} .'
+            sh 'cd reading-cloud-gateway'
+            sh "docker build -t reading-cloud-gateway:${env.build_tag} ."
           }
         }
 
