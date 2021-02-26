@@ -22,6 +22,10 @@ node('jnlp-slave') {
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword} registry-vpc.cn-shenzhen.aliyuncs.com"
+                sh "docker push reading-cloud-gateway:${build_tag}"
+        }
     }
     stage('Deploy') {
         echo "5. Deploy Stage"
