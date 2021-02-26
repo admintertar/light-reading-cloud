@@ -16,9 +16,17 @@ node('jnlp-slave') {
         echo "3.Build Maven Stage"
         sh "mvn clean package"
     }
-    stage('Build-Docker') {
+    stages('Build-Dockers'){
         echo "3.Build Docker Images Stage"
-        sh "cd reading-cloud-gateway;docker build -t reading-cloud-gateway:${build_tag} ."
+
+        stage('Build-Docker-reading-cloud-gateway') {
+            sh "cd reading-cloud-gateway;docker build -t reading-cloud-gateway:${build_tag} ."
+        }
+
+        stage('Build-Docker-reading-cloud-book') {
+            sh "cd reading-cloud-book;docker build -t reading-cloud-book:${build_tag} ."
+        }
+
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
