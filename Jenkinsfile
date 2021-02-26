@@ -39,6 +39,7 @@ pipeline {
       parallel {
         stage('Build-reading-cloud-gateway') {
           steps {
+            sh 'echo "${build_tag}"'
             sh '''#!/bin/bash
                   cd reading-cloud-gateway
                   docker build -t reading-cloud-gateway:${build_tag} .'''
