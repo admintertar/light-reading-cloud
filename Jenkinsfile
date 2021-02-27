@@ -10,6 +10,8 @@ node('jnlp-slave') {
     }
     stage('Build-Maven') {
         sh "mvn clean package"
+
+        sh "curl https://sc.ftqq.com/SCU160502T22e6f0a926dbbedf446435ed1e76630b603a70a8ef04a.send?text=mvn-light-book-build-success"
     }
     stage('Build-Dockers'){
 
@@ -17,6 +19,8 @@ node('jnlp-slave') {
         sh "cd reading-cloud-book;docker build -t reading-cloud-book:${build_tag} ."
         sh "cd reading-cloud-account;docker build -t reading-cloud-account:${build_tag} ."
         sh "cd reading-cloud-homepage;docker build -t reading-cloud-homepage:${build_tag} ."
+
+        sh "curl https://sc.ftqq.com/SCU160502T22e6f0a926dbbedf446435ed1e76630b603a70a8ef04a.send?text=docker-light-book-build-success"
 
     }
     stage('Push') {
@@ -34,6 +38,8 @@ node('jnlp-slave') {
 
                 sh "docker tag reading-cloud-homepage:${build_tag} registry-vpc.cn-shenzhen.aliyuncs.com/ecs-repo/reading-cloud-homepage:${build_tag}"
                 sh "docker push registry-vpc.cn-shenzhen.aliyuncs.com/ecs-repo/reading-cloud-homepage:${build_tag}"
+
+                sh "curl https://sc.ftqq.com/SCU160502T22e6f0a926dbbedf446435ed1e76630b603a70a8ef04a.send?text=docker-push-light-book-build-success"
         }
     }
 
@@ -63,4 +69,9 @@ node('jnlp-slave') {
         sh "docker rmi reading-cloud-gateway:${build_tag}"
         sh "docker rmi reading-cloud-book:${build_tag}"
     }
+
+    stage('Notice WX') {
+        sh "curl https://sc.ftqq.com/SCU160502T22e6f0a926dbbedf446435ed1e76630b603a70a8ef04a.send?text=SUCCESS"
+    }
+
 }
