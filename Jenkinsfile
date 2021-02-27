@@ -10,19 +10,6 @@ pipeline {
   }
 
   stages {
-    stage('Prepare') {
-      steps {
-        sh 'echo "1.Prepare Stage"'
-        sh 'git pull'
-      }
-    }
-
-    stage('Test') {
-      steps {
-        sh 'echo "Test Stage"'
-        sh "BUILD_TAG = ${env.BUILD_TAG}"
-      }
-    }
 
     stage('Build-Maven') {
       steps {
