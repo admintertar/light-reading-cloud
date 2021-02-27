@@ -36,6 +36,7 @@ node('jnlp-slave') {
                 sh "docker push registry-vpc.cn-shenzhen.aliyuncs.com/ecs-repo/reading-cloud-homepage:${build_tag}"
         }
     }
+
     stage('YAML') {
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-gateway.yaml"
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-book.yaml"
