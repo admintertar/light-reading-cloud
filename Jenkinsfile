@@ -56,4 +56,11 @@ node('jnlp-slave') {
         sh "sed -i 's/${build_tag}/<BUILD_TAG>/' /data/light-book/reading-cloud-homepage.yaml"
 
     }
+
+    stage('Delete Images') {
+        sh "docker rmi reading-cloud-account:${build_tag}"
+        sh "docker rmi reading-cloud-homepage:${build_tag}"
+        sh "docker rmi reading-cloud-gateway:${build_tag}"
+        sh "docker rmi reading-cloud-book:${build_tag}"
+    }
 }
