@@ -13,12 +13,13 @@ pipeline {
       steps {
         sh 'echo "1.Prepare Stage"'
         checkout scm
-
-        tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-        build_tag = tag
-        sh 'echo ${tag}'
-        if (env.BRANCH_NAME != 'master') {
-            env.build_tag = "${env.BRANCH_NAME}-${build_tag}"
+        script {
+            tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            build_tag = tag
+            sh 'echo $tag'
+            if (env.BRANCH_NAME != 'master') {
+                env.build_tag = "${env.BRANCH_NAME}-${build_tag}"
+            }
         }
       }
     }
@@ -43,7 +44,7 @@ pipeline {
             sh 'echo "${build_tag}"'
             sh '''#!/bin/bash
                   cd reading-cloud-gateway
-                  docker build -t reading-cloud-gateway:${build_tag} .'''
+                  docker build -t reading-cloud-gateway:$build_tag .'''
           }
         }
 
@@ -51,7 +52,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-book
-                  docker build -t reading-cloud-book:${build_tag} .'''
+                  docker build -t reading-cloud-book:$build_tag .'''
           }
         }
 
@@ -59,7 +60,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-homepage
-                  docker build -t reading-cloud-homepage:${build_tag} .'''
+                  docker build -t reading-cloud-homepage:$build_tag .'''
           }
         }
 
@@ -67,7 +68,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-account
-                  docker build -t reading-cloud-account:${build_tag} .'''
+                  docker build -t reading-cloud-account:$build_tag .'''
           }
         }
 
