@@ -6,14 +6,15 @@ pipeline {
 
   }
   environment {
-    BUILD_TAG = "${sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()}"
+    BUILD_TAG = "${sh(returnStdout: true, script: 'git rev-parse --short HEAD')}"
   }
 
   stages {
 
     stage('Build-Maven') {
       steps {
-        sh 'mvn clean package'
+        sh 'echo "${env.BUILD_TAG}"'
+
       }
     }
 
