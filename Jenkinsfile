@@ -1,6 +1,5 @@
 node('jnlp-slave') {
     stage('Prepare') {
-        echo "1.Prepare Stage"
         checkout scm
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
@@ -9,15 +8,10 @@ node('jnlp-slave') {
                 }
             }
     }
-    stage('Test') {
-        echo "2.Test Stage"
-    }
     stage('Build-Maven') {
-        echo "3.Build Maven Stage"
         sh "mvn clean package"
     }
     stage('Build-Dockers'){
-        echo "3.Build Docker Images Stage"
 
         sh "cd reading-cloud-gateway;docker build -t reading-cloud-gateway:${build_tag} ."
         sh "cd reading-cloud-book;docker build -t reading-cloud-book:${build_tag} ."
@@ -26,7 +20,6 @@ node('jnlp-slave') {
 
     }
     stage('Push') {
-        echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                 sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword} registry-vpc.cn-shenzhen.aliyuncs.com"
 
@@ -44,14 +37,12 @@ node('jnlp-slave') {
         }
     }
     stage('YAML') {
-        echo "5. Change YAML File Stage"
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-gateway.yaml"
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-book.yaml"
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-account.yaml"
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' /data/light-book/reading-cloud-homepage.yaml"
     }
     stage('Deploy') {
-        echo "6. Deploy Stage"
         sh "kubectl apply -f /data/light-book/reading-cloud-gateway.yaml"
         sh "kubectl apply -f /data/light-book/reading-cloud-book.yaml"
         sh "kubectl apply -f /data/light-book/reading-cloud-account.yaml"
