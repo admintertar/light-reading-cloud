@@ -13,7 +13,7 @@ pipeline {
     stage('Prepare') {
       steps {
         sh 'echo "1.Prepare Stage"'
-        checkout scm
+        sh 'git pull'
       }
     }
 
