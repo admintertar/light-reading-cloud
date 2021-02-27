@@ -19,14 +19,13 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'echo "2.Test Stage"'
+        sh 'echo "Test Stage"'
         sh "BUILD_TAG = ${env.BUILD_TAG}"
       }
     }
 
     stage('Build-Maven') {
       steps {
-        sh 'echo "3.Build Maven Stage"'
         sh 'mvn clean package'
       }
     }
@@ -35,10 +34,10 @@ pipeline {
       parallel {
         stage('Build-reading-cloud-gateway') {
           steps {
-            sh 'echo "${build_tag}"'
+            sh 'echo "${env.BUILD_TAG}"'
             sh '''#!/bin/bash
                   cd reading-cloud-gateway
-                  docker build -t reading-cloud-gateway:$build_tag .'''
+                  docker build -t reading-cloud-gateway:${env.BUILD_TAG} .'''
           }
         }
 
@@ -46,7 +45,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-book
-                  docker build -t reading-cloud-book:$build_tag .'''
+                  docker build -t reading-cloud-book:${env.BUILD_TAG} .'''
           }
         }
 
@@ -54,7 +53,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-homepage
-                  docker build -t reading-cloud-homepage:$build_tag .'''
+                  docker build -t reading-cloud-homepage:${env.BUILD_TAG} .'''
           }
         }
 
@@ -62,7 +61,7 @@ pipeline {
           steps {
             sh '''#!/bin/bash
                   cd reading-cloud-account
-                  docker build -t reading-cloud-account:$build_tag .'''
+                  docker build -t reading-cloud-account:${env.BUILD_TAG} .'''
           }
         }
 
