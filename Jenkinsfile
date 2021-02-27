@@ -6,28 +6,21 @@ pipeline {
 
   }
   environment {
-    build_tag = 'env-param'
+    BUILD_TAG = "${sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()}"
   }
+
   stages {
     stage('Prepare') {
       steps {
         sh 'echo "1.Prepare Stage"'
         checkout scm
-        script {
-            tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-            build_tag = tag
-            sh 'echo $tag'
-            if (env.BRANCH_NAME != 'master') {
-                env.build_tag = "${env.BRANCH_NAME}-${build_tag}"
-            }
-        }
       }
     }
 
     stage('Test') {
       steps {
         sh 'echo "2.Test Stage"'
-        sh "echo $build_tag"
+        sh "BUILD_TAG = ${env.BUILD_TAG}"
       }
     }
 
