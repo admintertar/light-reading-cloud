@@ -27,6 +27,7 @@ pipeline {
     stage('Test') {
       steps {
         sh 'echo "2.Test Stage"'
+        sh "echo $build_tag"
       }
     }
 
